@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#ramen-menu img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#ramen-detail img {
+    width: 200px;
+    height: auto;
+    margin-top: 10px;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f1e5;
+    padding: 20px;
+}
