@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramen Rating App</title>
+    <style>
+        body {
+            background-color: orange;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .ramen-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .ramen-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            cursor: pointer;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+        .stars {
+            cursor: pointer;
+        }
+        .comment-box {
+            width: 100%;
+            margin-top: 10px;
+        }
+        #ramen-detail img {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ramen Rating App</h1>
+    <div id="ramen-menu" class="ramen-container"></div>
+    <div id="ramen-detail">
+        <h2 id="ramen-name">Select a Ramen</h2>
+        <h3 id="ramen-restaurant"></h3>
+        <img id="ramen-image" src="" alt="">
+        <p>Rating: <span id="ramen-rating">N/A</span></p>
+        <p>Comment: <span id="ramen-comment">N/A</span></p>
+    </div>
+    <form id="new-ramen-form">
+        <h3>Add a New Ramen</h3>
+        <input type="text" id="new-name" placeholder="Name" required>
+        <input type="text" id="new-restaurant" placeholder="Restaurant" required>
+        <input type="text" id="new-image" placeholder="Image URL" required>
+        <input type="number" id="new-rating" placeholder="Rating (1-5)" required min="1" max="5">
+        <input type="text" id="new-comment" placeholder="Comment" required>
+        <button type="submit">Add Ramen</button>
+    </form>
+    
+    <script>
+        const ramens = [
+            { id: 1, name: "Gyukotsu", restaurant: "Ichiran", image: "gyukotsu.jpg", rating: 5, comment: "Delicious!" },
+            { id: 2, name: "Kojiro", restaurant: "Menya", image: "kojiro.jpg", rating: 4, comment: "Very flavorful!" },
+            { id: 3, name: "Naruto", restaurant: "Ramen-ya", image: "naruto.jpg", rating: 3, comment: "Tasty but salty." },
+            { id: 4, name: "Nirvana", restaurant: "Noodle House", image: "nirvana.jpg", rating: 5, comment: "Amazing!" },
+            { id: 5, name: "Shoyu", restaurant: "Ramen Master", image: "shoyu.jpg", rating: 4, comment: "Classic and delicious!" }
+        ];
+
+        function displayRamens() {
+            const menu = document.getElementById("ramen-menu");
+            menu.innerHTML = "";
+            ramens.forEach(ramen => {
+                const img = document.createElement("img");
+                img.src = ramen.image;
+                img.alt = ramen.name;
+                img.addEventListener("click", () => handleClick(ramen));
+                menu.appendChild(img);
+            });
+        }
+
+        function handleClick(ramen) {
+            document.getElementById("ramen-name").innerText = ramen.name;
+            document.getElementById("ramen-restaurant").innerText = ramen.restaurant;
+            document.getElementById("ramen-image").src = ramen.image;
+            document.getElementById("ramen-rating").innerText = ramen.rating;
+            document.getElementById("ramen-comment").innerText = ramen.comment;
+        }
+
+        function addSubmitListener() {
+            document.getElementById("new-ramen-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const newRamen = {
+                    id: ramens.length + 1,
+                    name: document.getElementById("new-name").value,
+                    restaurant: document.getElementById("new-restaurant").value,
+                    image: document.getElementById("new-image").value,
+                    rating: document.getElementById("new-rating").value,
+                    comment: document.getElementById("new-comment").value
+                };
+                ramens.push(newRamen);
+                displayRamens();
+                this.reset();
+            });
+        }
+
+        function main() {
+            displayRamens();
+            addSubmitListener();
+        }
+
+        document.addEventListener("DOMContentLoaded", main);
+    </script>
+</body>
+</html>
